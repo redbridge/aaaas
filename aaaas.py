@@ -13,6 +13,13 @@ def aaaas(text):
     res = os.popen("figlet %s" % text).read()
     return Response(res, mimetype='text/plain')
 
+@app.route('/fancy/<font>/<text>')
+def fancy(font, text):
+    if not font in fonts:
+        return "only these fonts are allowed: %s" % ", ".join(fonts)
+    else:
+        res = os.popen("figlet -f %s %s" % (font, text)).read()
+        return Response(res, mimetype='text/plain')
 
 
 if __name__ == "__main__":
